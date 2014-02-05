@@ -73,6 +73,19 @@ class ProductTest < ActiveSupport::TestCase
                  product.errors[:title]
   end
 
+  test "product title longer than 9 characters" do
+    product = Product.new(title:       "123456789",
+        description: "yyy",
+        price:       1,
+        image_url:   "fred.gif")
+
+    assert product.invalid?
+    assert product.errors[:title].any?
+    product.title = "01236456789"
+    assert product.valid?
+  end
+
+
 
 
 
